@@ -1,3 +1,77 @@
+const alreadyAsked = [];
+// Get the question element
+const questionElement = document.getElementById('question');
+// Get the start button element
+const startButton = document.getElementById("startButton");
+// Get the question section element
+const questionSection = document.getElementById("questionSection");
+// Get the game over element
+const gameOverElement = document.getElementById("gameOver");
+// Get the buttons for the answer
+const buttons = document.getElementById("grid").children;
+// Get the score element
+const scoreElement = document.getElementById("score");
+// Get the win element
+const winElement = document.getElementById("win");
+// Get the rule element
+const ruleElement = document.getElementById("rule");
+
+let n;
+
+function setQuestion() {
+    if (!startButton.classList.contains("d-none") && questionSection.classList.contains("d-none")) {
+        if (!gameOverElement.classList.contains("d-none"))
+            gameOverElement.classList.add("d-none");
+        startButton.classList.add("d-none");
+        ruleElement.classList.add("d-none");
+        questionSection.classList.remove("d-none");
+        scoreElement.classList.remove("d-none");
+    }
+    // Pick a random question that hasn't been asked yet
+    do {
+        n = Math.floor(Math.random() * questions.length);
+    } while (alreadyAsked.includes(n));
+    alreadyAsked.push(n);
+    questionElement.textContent = questions[n].question;
+
+    for (let i = 0; i < buttons.length; i++)
+        buttons[i].textContent = questions[n].options[i];
+}
+
+function updateScore() {
+    // Parse the current score as an integer
+    let currentScore = parseInt(scoreElement.textContent.split(":")[1].trim());
+    // Increment the score
+    let newScore = currentScore + 1;
+    // Update the score display
+    scoreElement.textContent = 'Score: ' + newScore;
+
+    return newScore;
+}
+
+// When the user chooses a wrong answer, all wrong answers turn red, also the end game message is displayed
+function lose() {
+    for (let i = 0; i < buttons.length; i++)
+        if (questions[n].correct != buttons[i].id)
+            buttons[i].classList.add("lose");
+
+    gameOverElement.classList.remove("d-none");
+}
+
+function guess(id) {
+    // Get the answer button id
+    if (questions[n].correct == id) {
+
+        if (updateScore() == questions.length) {
+            // Show the winning message
+            winElement.classList.remove("d-none");
+            questionSection.classList.add("d-none");
+        } else
+            setQuestion();
+    } else {
+        lose();
+    }
+}
 const questions = [
     {
         question: "What is the capital of Italy?",
@@ -352,7 +426,7 @@ const questions = [
     {
         question: "Which planet is known for its Great Red Spot?",
         options: ["Earth", "Mars", "Jupiter", "Saturn"],
-        correct:  3
+        correct: 3
     },
     {
         question: "What is the capital of Sweden?",
@@ -472,7 +546,7 @@ const questions = [
     {
         question: "Which country is known for the Colosseum?",
         options: ["Greece", "Italy", "Egypt", "Turkey"],
- correct: 2
+        correct: 2
     },
     {
         question: "What is the capital of Belgium?",
