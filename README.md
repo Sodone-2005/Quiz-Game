@@ -38,7 +38,7 @@ A fun and interactive quiz game to test your general knowledge! The game feature
 1.  Clone the repository or download the ZIP file.
     
     ```bash
-    git clone https://github.com/your-repo/quiz-game.git
+    git clone https://github.com/Sodone-2005/quiz-game.git
     ```
     
 2.  Open `index.html` in any modern web browser.
