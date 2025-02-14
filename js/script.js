@@ -49,11 +49,13 @@ function updateScore() {
     return newScore;
 }
 
-// When the user chooses a wrong answer, all wrong answers turn red, also the end game message is displayed
+// When the user chooses a wrong answer, all wrong answers turn red and, also the end game message is displayed. All buttons are disabled.
 function lose() {
-    for (let i = 0; i < buttons.length; i++)
+    for (let i = 0; i < buttons.length; i++) {
         if (questions[n].correct != buttons[i].id)
             buttons[i].classList.add("lose");
+        buttons[i].disabled = true;
+    }
 
     gameOverElement.classList.remove("d-none");
 }
